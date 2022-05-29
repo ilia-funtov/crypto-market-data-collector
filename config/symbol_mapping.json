@@ -1,0 +1,10 @@
+{
+    "symbol": "BTCUSD",
+    "mapping":
+    {
+        "kraken": "XXBTZUSD",
+        "bitfinex": "tBTCUSD",
+        "coinbase": "BTC-USD",
+        "bitmex": "XBTUSD"
+    }
+}
