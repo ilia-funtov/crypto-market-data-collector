@@ -1,7 +1,7 @@
 # crypto-market-data-collector
 Market data collector for crypto exchanges
 
-A tool with a command-line inteface that helps to collect market data from popular cryptocurrency trade exhanges.
+A tool with a command-line interface that helps to collect market data from popular cryptocurrency trade exhanges.
 It collects level-2 prices (order book) and trade events (buys & sells).
 Next exchanges are supported: Coinbase, Bitfinex, Bitmex, Kraken.
 It is written in C++ 17.
