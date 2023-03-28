@@ -137,9 +137,9 @@ namespace market_data
 			logger_t logger,
 			const general_symbol_description & symbol_description,
 			const market_data_subscriber & subscriber = market_data_subscriber{}) :
-			_logger(logger),
 			_symbol_description(symbol_description),
-			_subscriber(subscriber)
+			_subscriber(subscriber),
+			_logger(logger)
 		{			
 			LOG_INFO(_logger) << "Adding market data feeds for symbol: " << symbol_description.symbol_name;
 

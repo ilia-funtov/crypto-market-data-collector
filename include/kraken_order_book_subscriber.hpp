@@ -35,9 +35,9 @@ namespace kraken
 			order_book_subscriber_base(symbol, book_handler),
 			_order_book_size(order_book_size),
 			_quote_period(quote_period),
-			_running(true),
+			_symbol(symbol),
 			_error_handler(error_handler),
-			_symbol(symbol)
+			_running(true)
 		{
 			assert(!symbol.empty());
 			assert(_error_handler);

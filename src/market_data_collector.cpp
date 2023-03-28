@@ -1,4 +1,4 @@
-﻿/*
+/*
 Market data collector for crypto exchanges.
 https://github.com/ilia-funtov/crypto-market-data-collector
 
@@ -30,7 +30,7 @@ SOFTWARE.
 #include <string>
 #include <thread>
 
-#include <boost/program_options.hpp> 
+#include <boost/program_options.hpp>
 #include <boost/algorithm/string.hpp>
 
 #include <logger.hpp>
@@ -40,8 +40,8 @@ SOFTWARE.
 #include <json_helpers.hpp>
 
 market_data::general_symbol_description get_symbol_description(
-	const std::string & symbol_config_file,
-	const std::set<market_data::exchange_type> & exchanges,
+	const std::string &symbol_config_file,
+	const std::set<market_data::exchange_type> &exchanges,
 	unsigned int depth)
 {
 	using namespace market_data;
@@ -61,7 +61,7 @@ market_data::general_symbol_description get_symbol_description(
 	symbol_description.symbol_name = json_helpers::get_required_value<std::string>(config, "symbol");
 	const std::map<std::string, std::string> symbol_mapping = config.at("mapping").get<std::map<std::string, std::string>>();
 
-	for (const auto & mapping_item: symbol_mapping)
+	for (const auto &mapping_item : symbol_mapping)
 	{
 		const auto exchange_type = market_data::get_exchange_type(mapping_item.first);
 		if (exchanges.count(exchange_type))
@@ -86,9 +86,9 @@ market_data::general_symbol_description get_symbol_description(
 template <typename logger_t>
 void run_loop(
 	logger_t logger,
-	const std::string & quote_dump_path,
-	const std::string & symbol_config_file,
-	const std::set<market_data::exchange_type> & exchanges,
+	const std::string &quote_dump_path,
+	const std::string &symbol_config_file,
+	const std::set<market_data::exchange_type> &exchanges,
 	unsigned int duration_minutes,
 	unsigned int blocks_num,
 	unsigned int depth)
@@ -99,7 +99,7 @@ void run_loop(
 
 	std::cout << "Collecting market data for symbol '" << symbol_description.symbol_name << "'" << std::endl;
 
-	for (const auto & exchange_symbol: symbol_description.source_exchanges)
+	for (const auto &exchange_symbol : symbol_description.source_exchanges)
 	{
 		std::cout << market_data::get_exchange_name(exchange_symbol.first) << ": " << exchange_symbol.second.symbol_name << std::endl;
 	}
@@ -110,20 +110,20 @@ void run_loop(
 	std::this_thread::sleep_for(std::chrono::minutes(duration_minutes * blocks_num));
 }
 
-std::set<market_data::exchange_type> parse_exchanges(const std::string & str)
+std::set<market_data::exchange_type> parse_exchanges(const std::string &str)
 {
 	std::vector<std::string> substrs;
 	boost::split(substrs, str, boost::is_any_of(","));
 
 	std::set<market_data::exchange_type> result;
-	for (const auto & s : substrs)
+	for (const auto &s : substrs)
 	{
 		result.insert(market_data::get_exchange_type(s));
 	}
 	return result;
 }
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
 	constexpr auto opt_help = "help";
 	constexpr auto opt_exchanges = "exchanges";
@@ -132,6 +132,10 @@ int main(int argc, char* argv[])
 	constexpr auto opt_duration = "duration";
 	constexpr auto opt_blocks = "blocks";
 	constexpr auto opt_depth = "depth";
+
+	constexpr auto default_block_duration_in_minutes = 480; // 8 hours
+	constexpr auto default_depth = 10;
+	constexpr auto default_number_of_blocks = 1;
 
 	try
 	{
@@ -142,16 +146,17 @@ int main(int argc, char* argv[])
 			(opt_exchanges, po::value<std::string>(), "Dump for selected exchanges only (bitfinex, bitmex, kraken, gdax)")
 			(opt_dump_path, po::value<std::string>(), "Dump path for market data")
 			(opt_symbol_config, po::value<std::string>(), "Config file for symbols name mapping")
-			(opt_duration, po::value<unsigned int>()->default_value(480), "Duration of one block in minutes") // 8 hours
-			(opt_blocks, po::value<unsigned int>()->default_value(1), "Number of market data blocks")
-			(opt_depth, po::value<unsigned int>()->default_value(10), "Depth of the order book");
+			(opt_duration, po::value<unsigned int>()->default_value(default_block_duration_in_minutes), "Duration of one block in minutes")
+			(opt_blocks, po::value<unsigned int>()->default_value(default_number_of_blocks), "Number of market data blocks")
+			(opt_depth, po::value<unsigned int>()->default_value(default_depth), "Depth of the order book");
 
 		po::variables_map vm;
 		po::store(po::parse_command_line(argc, argv, desc), vm);
 
 		if (vm.count(opt_help))
 		{
-			std::cout << "market-data-collector:" << std::endl << desc << std::endl;
+			std::cout << "market-data-collector:" << std::endl
+					  << desc << std::endl;
 			return 0;
 		}
 
@@ -202,7 +207,7 @@ int main(int argc, char* argv[])
 			std::cout << "Number of market data blocks: " << blocks_num << std::endl;
 			std::cout << "Depth of the order book: " << depth << std::endl;
 			std::cout << "Exchanges:" << std::endl;
-			for (const auto & ex : exchanges)
+			for (const auto &ex : exchanges)
 			{
 				std::cout << market_data::get_exchange_name(ex) << std::endl;
 			}
@@ -211,13 +216,13 @@ int main(int argc, char* argv[])
 
 			run_loop(logger, dump_path, symbol_config_file, exchanges, duration, blocks_num, depth);
 		}
-		catch (const std::exception & exc)
+		catch (const std::exception &exc)
 		{
 			LOG_ERROR(logger) << exc.what();
 			throw;
 		}
 	}
-	catch (const std::exception & exc)
+	catch (const std::exception &exc)
 	{
 		std::cerr << exc.what() << std::endl;
 		return -1;

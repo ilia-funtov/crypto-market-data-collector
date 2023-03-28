@@ -32,10 +32,10 @@ namespace kraken
 			const market_data_common::trade_handler_t & trade_handler,
 			const market_data_common::error_handler_t & error_handler) :
 			_request_period(request_period),
-			_running(true),
+			_symbol(symbol),
 			_trade_handler(trade_handler),
 			_error_handler(error_handler),
-			_symbol(symbol)
+			_running(true)
 		{
 			assert(!symbol.empty());
 			assert(_trade_handler);

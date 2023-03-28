@@ -33,8 +33,8 @@ namespace websocket_subscriber
 			const std::string & api_address,
 			unsigned int port,
 			const std::string & target) :
-			_websocket(api_address, port, target),
-			_error_handler(error_handler)
+			_error_handler(error_handler),
+			_websocket(api_address, port, target)
 		{
 			assert(_error_handler);
 

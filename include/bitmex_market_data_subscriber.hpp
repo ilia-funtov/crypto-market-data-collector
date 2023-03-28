@@ -32,8 +32,8 @@ namespace bitmex
 			unsigned int port = bitmex_ws_subscriber::default_port) :
 			order_book_subscriber_base(symbol, book_handler),
 			_trade_handler(trade_handler),
-			_ws_subscriber(error_handler, api_address, port),
-			_symbol(symbol)
+			_symbol(symbol),
+			_ws_subscriber(error_handler, api_address, port)
 		{
 			assert(_trade_handler);
 
