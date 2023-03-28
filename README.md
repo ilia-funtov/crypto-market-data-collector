@@ -16,6 +16,10 @@ Install dependencies:
 
 sudo apt install libboost-all-dev libssl-dev libcurl4-openssl-dev
 
+Install linting tool clang-tidy (optional):
+
+sudo apt install clang-tidy
+
 Get the source and build:
 
 git clone https://github.com/ilia-funtov/crypto-market-data-collector.git
@@ -31,6 +35,10 @@ cmake ..
 make
 
 Just skip some warnings from openssl since some functions could be declared as deprecated.
+
+Run linter:
+
+make lint
 
 Usage:
 
