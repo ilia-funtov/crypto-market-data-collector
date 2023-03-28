@@ -250,19 +250,20 @@ namespace market_data
 			sell
 		};
 
+		using timestamp_type = std::int64_t;
 		struct trade_dump_record
 		{
 			exchange_type exchange;
 			double price;
 			double volume;
-			std::uint64_t timestamp;
+			timestamp_type timestamp;
 			market_data_common::taker_deal_type side;
 		};
 
 		struct price_dump_record
 		{
 			exchange_type exchange;
-			std::uint64_t timestamp;
+			timestamp_type timestamp;
 			std::vector<std::pair<double, double>> prices;
 		};
 
@@ -417,7 +418,7 @@ namespace market_data
 			}
 		}
 
-		unsigned int get_block_index(std::uint64_t timestamp) const
+		unsigned int get_block_index(timestamp_type timestamp) const
 		{			
 			const auto dump_start_mcs = std::chrono::duration_cast<std::chrono::microseconds>(_dump_start.time_since_epoch()).count();
 			return (timestamp > dump_start_mcs && _block_duration.count() != 0) ? ((timestamp - dump_start_mcs) / std::chrono::duration_cast<std::chrono::microseconds>(_block_duration).count()) : 0;
@@ -476,7 +477,7 @@ namespace market_data
 			const std::string & symbol,
 			double price,
 			double volume,
-			std::uint64_t timestamp,
+			timestamp_type timestamp,
 			market_data_common::taker_deal_type side)
 		{
 			if (_subscriber.trade_subscriber)
