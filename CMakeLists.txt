@@ -1,12 +1,17 @@
 cmake_minimum_required(VERSION 3.0.0)
 project(market-data-collector)
 
-set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 list(APPEND SRCFILES src/market_data_collector.cpp)
 
 add_executable(market-data-collector ${SRCFILES})
+
+set_target_properties(market-data-collector PROPERTIES
+    CXX_STANDARD 17
+    CXX_STANDARD_REQUIRED ON
+    CXX_EXTENSIONS OFF
+)
 
 target_include_directories(market-data-collector PRIVATE include)
 target_include_directories(market-data-collector SYSTEM PRIVATE dependencies)
@@ -47,6 +52,12 @@ if (EXISTS ${CLANG_TIDY_EXE})
     
     add_executable(market-data-collector-lint ${SRCFILES})
     set_target_properties(market-data-collector-lint PROPERTIES EXCLUDE_FROM_ALL 1)
+
+    set_target_properties(market-data-collector-lint PROPERTIES
+        CXX_STANDARD 17
+        CXX_STANDARD_REQUIRED ON
+        CXX_EXTENSIONS OFF
+    )
 
     if (MSVC)
         target_compile_options(market-data-collector-lint PRIVATE /W4)
