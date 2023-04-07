@@ -8,5 +8,5 @@
     "workspaceMount": "source=${localWorkspaceFolder},target=/project,type=bind",
     "workspaceFolder": "/project",
     "onCreateCommand": "git config --global --add safe.directory /project"
-   }
+}
    

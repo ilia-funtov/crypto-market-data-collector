@@ -47,8 +47,8 @@ else()
 endif()
 
 find_program(CLANG_TIDY_EXE NAMES "clang-tidy")
-if (EXISTS ${CLANG_TIDY_EXE})
-    message("Using clang-tidy for linting")
+if ((DEFINED CLANG_TIDY_EXE) AND (EXISTS ${CLANG_TIDY_EXE}))
+    message(STATUS "Using clang-tidy for linting")
     
     add_executable(market-data-collector-lint ${SRCFILES})
     set_target_properties(market-data-collector-lint PROPERTIES EXCLUDE_FROM_ALL 1)
