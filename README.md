@@ -6,7 +6,8 @@ It collects level-2 prices (order book) and trade events (buys & sells).
 Next exchanges are supported: Coinbase, Bitfinex, Bitmex, Kraken.
 It is written in C++ 17.
 
-How to build in Linux (Ubuntu)
+## Build
+How to build in Ubuntu and other Debian-based systems:
 
 Install prerequsites:
 
@@ -36,9 +37,11 @@ make
 
 Just skip some warnings from openssl since some functions could be declared as deprecated.
 
-Run linter:
+Run linter (optional):
 
 make lint
+
+## Run
 
 Usage:
 
@@ -62,3 +65,8 @@ exchange name, timestamp in microseconds, best bid price, best bid volume, best 
 Trade file format is:
 
 exchange name, price, volume (positive for taker buy and negative for taker sell), timestamp in microseconds
+
+## Support
+You can support this project by making a donation in Bitcoin:
+
+bc1qqx0v9zuy2xem5pkz6glr5ft02cfxxhc2pr7grm
