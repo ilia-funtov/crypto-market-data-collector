@@ -39,16 +39,11 @@ sudo apt install clang-tidy
 Get the source and build:
 
 ```
-git clone https://github.com/ilia-funtov/crypto-market-data-collector.git
-
-cd crypto-market-data-collector
-
-mkdir build
-
-cd build
-
-cmake ..
-
+git clone https://github.com/ilia-funtov/crypto-market-data-collector.git &&
+cd crypto-market-data-collector && 
+mkdir build &&
+cd build &&
+cmake .. &&
 make
 ```
 
