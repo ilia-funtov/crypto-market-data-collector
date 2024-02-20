@@ -191,12 +191,12 @@ namespace market_data
 			{
 				std::lock_guard<std::mutex> lock(_trades_dump_queue_mtx);
 				_stop_dumping = true;
-				_trades_dump_queue_var.notify_all(); // TODO: replace with notify_one
+				_trades_dump_queue_var.notify_one();
 			}
 
 			{
 				std::lock_guard<std::mutex> lock(_prices_dump_queue_mtx);
-				_prices_dump_queue_var.notify_all(); // TODO: replace with notify_one
+				_prices_dump_queue_var.notify_one();
 			}
 
 			if (_trades_dump_queue_thread.joinable())
