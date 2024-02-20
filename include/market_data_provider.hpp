@@ -17,6 +17,7 @@ Copyright (c) 2022 Ilia Funtov.
 #include <filesystem>
 #include <functional>
 #include <iterator>
+#include <iomanip>
 #include <string>
 #include <thread>
 #include <memory>
@@ -190,12 +191,12 @@ namespace market_data
 			{
 				std::lock_guard<std::mutex> lock(_trades_dump_queue_mtx);
 				_stop_dumping = true;
-				_trades_dump_queue_var.notify_all();
+				_trades_dump_queue_var.notify_all(); // TODO: replace with notify_one
 			}
 
 			{
 				std::lock_guard<std::mutex> lock(_prices_dump_queue_mtx);
-				_prices_dump_queue_var.notify_all();
+				_prices_dump_queue_var.notify_all(); // TODO: replace with notify_one
 			}
 
 			if (_trades_dump_queue_thread.joinable())
@@ -324,8 +325,9 @@ namespace market_data
 					if (file != nullptr)
 					{
 						std::ostringstream ss;
+						ss << std::fixed;
 						ss << get_exchange_name(trade_record.exchange) << ',' <<
-							trade_record.price << ',' <<
+							std::setprecision(2) << trade_record.price << ',' << std::setprecision(8) <<
 							((trade_record.side == market_data_common::taker_deal_type::buy) ? trade_record.volume : -trade_record.volume) << ',' << trade_record.timestamp << "\n";
 
 						const auto & str = ss.str();
@@ -397,10 +399,11 @@ namespace market_data
 					if (file != nullptr)
 					{
 						std::ostringstream ss;
+						ss << std::fixed;
 						ss << get_exchange_name(price_record.exchange) << ',' << price_record.timestamp;
 						for (const auto & price_pair : price_record.prices)
 						{
-							ss << ',' << price_pair.first << ',' << price_pair.second;
+							ss << ',' << std::setprecision(2) << price_pair.first << ',' << std::setprecision(8) << price_pair.second;
 						}
 						ss << '\n';
 
