@@ -39,7 +39,7 @@ namespace coinbase
 			assert(_trade_handler);
 
 			_ws_subscriber.subscribe(
-				"level2",
+				"level2_batch",
 				symbol,
 				{ "snapshot", "l2update" },
 				[this](const json & object) { level2_event_handler(object); });
