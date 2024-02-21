@@ -13,6 +13,9 @@ set_target_properties(market-data-collector PROPERTIES
     CXX_EXTENSIONS OFF
 )
 
+target_compile_definitions(market-data-collector PRIVATE KRAKEN_API_PUBLIC_ONLY=1)
+target_compile_definitions(market-data-collector PRIVATE BITMEX_API_PUBLIC_ONLY=1)
+
 target_include_directories(market-data-collector PRIVATE include)
 target_include_directories(market-data-collector SYSTEM PRIVATE dependencies)
 
@@ -58,6 +61,9 @@ if ((DEFINED CLANG_TIDY_EXE) AND (EXISTS ${CLANG_TIDY_EXE}))
         CXX_STANDARD_REQUIRED ON
         CXX_EXTENSIONS OFF
     )
+
+    target_compile_definitions(market-data-collector-lint PRIVATE KRAKEN_API_PUBLIC_ONLY=1)
+    target_compile_definitions(market-data-collector-lint PRIVATE BITMEX_API_PUBLIC_ONLY=1)
 
     if (MSVC)
         target_compile_options(market-data-collector-lint PRIVATE /W4)

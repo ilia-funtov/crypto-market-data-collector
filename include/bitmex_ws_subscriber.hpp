@@ -21,7 +21,9 @@ Copyright (c) 2022 Ilia Funtov.
 #include <nlohmann/json.hpp>
 #include <json_helpers.hpp>
 
+#ifndef BITMEX_API_PUBLIC_ONLY
 #include <bitmex_authentication.hpp>
+#endif // BITMEX_API_PUBLIC_ONLY
 
 namespace bitmex
 {
@@ -218,6 +220,7 @@ namespace bitmex
 			_active_channels.clear();
 		}
 
+#ifndef BITMEX_API_PUBLIC_ONLY
 		void authenticate() override
 		{
 			if (_key.empty() || _secret.empty())
@@ -235,6 +238,7 @@ namespace bitmex
 			auto authenticate_message = object.dump();
 			websocket().write(authenticate_message);
 		}
+#endif // BITMEX_API_PUBLIC_ONLY
 
 		const std::string _key;
 		const std::string _secret;
