@@ -47,8 +47,6 @@ cmake .. &&
 make
 ```
 
-Just skip some warnings from openssl since some functions could be declared as deprecated.
-
 Run linter (optional):
 
 ```
