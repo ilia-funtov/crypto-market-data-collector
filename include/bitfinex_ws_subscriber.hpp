@@ -40,6 +40,11 @@ namespace bitfinex
 		{
 		}
 
+		bitfinex_ws_subscriber(const bitfinex_ws_subscriber &) = delete;
+		bitfinex_ws_subscriber & operator =(const bitfinex_ws_subscriber &) = delete;
+		bitfinex_ws_subscriber(bitfinex_ws_subscriber &&) = delete;
+		bitfinex_ws_subscriber & operator =(bitfinex_ws_subscriber &&) = delete;
+
 		~bitfinex_ws_subscriber()
 		{
 			stop();
@@ -273,8 +278,5 @@ namespace bitfinex
 		std::map<unsigned int, std::string> _channel_id_name_map;
 		std::map<std::string, unsigned int> _active_channels;
 		std::set<std::string> _to_unsubscribe;
-
-		bitfinex_ws_subscriber(const bitfinex_ws_subscriber &) = delete;
-		bitfinex_ws_subscriber & operator =(const bitfinex_ws_subscriber &) = delete;
 	};
 }

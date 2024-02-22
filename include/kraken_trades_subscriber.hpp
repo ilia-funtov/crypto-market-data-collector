@@ -44,6 +44,11 @@ namespace kraken
 			_thread = std::thread([this] { thread_loop(); });
 		}
 
+		kraken_trades_subscriber(const kraken_trades_subscriber &) = delete;
+		kraken_trades_subscriber& operator = (const kraken_trades_subscriber &) = delete;
+		kraken_trades_subscriber(kraken_trades_subscriber &&) = delete;
+		kraken_trades_subscriber& operator = (kraken_trades_subscriber &&) = delete;
+
 		~kraken_trades_subscriber()
 		{
 			{
@@ -96,9 +101,6 @@ namespace kraken
 				}
 			}
 		}
-
-		kraken_trades_subscriber(const kraken_trades_subscriber &) = delete;
-		kraken_trades_subscriber& operator = (const kraken_trades_subscriber &) = delete;
 
 		const std::chrono::milliseconds _request_period;
 		const std::string _symbol;

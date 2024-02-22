@@ -215,7 +215,7 @@ namespace kraken
 	class kraken_api_error : public std::runtime_error
 	{
 	public:
-		inline kraken_api_error(const std::string & message) : std::runtime_error(message)
+		kraken_api_error(const std::string & message) : std::runtime_error(message)
 		{
 		}
 	};
@@ -675,6 +675,12 @@ namespace kraken
 		{
 			init();
 		}
+	
+		// disallow copying and moving
+		KAPI(const KAPI&) = delete;
+		KAPI& operator=(const KAPI&) = delete;
+		KAPI(KAPI&&) = delete;
+		KAPI& operator=(KAPI&&) = delete;
 
 		get_order_book_response get_order_book(const std::string & pair, std::uint64_t count = 0)
 		{
@@ -1025,10 +1031,6 @@ namespace kraken
 		curl::curl_wrapper curl_;
 		
 		std::atomic<std::uint64_t> nonce_ {0};
-		
-		// disallow copying
-		KAPI(const KAPI&) = delete;
-		KAPI& operator=(const KAPI&) = delete;
 	};
 
 }; // namespace Kraken

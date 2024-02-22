@@ -41,6 +41,11 @@ namespace coinbase
 		{
 		}
 
+		coinbase_ws_subscriber(const coinbase_ws_subscriber &) = delete;
+		coinbase_ws_subscriber & operator =(const coinbase_ws_subscriber &) = delete;
+		coinbase_ws_subscriber(coinbase_ws_subscriber &&) = delete;
+		coinbase_ws_subscriber & operator =(coinbase_ws_subscriber &&) = delete;
+
 		~coinbase_ws_subscriber()
 		{
 			stop();
@@ -228,8 +233,5 @@ namespace coinbase
 		std::map<channel_product_key, event_handler_t> _subscriptions_requested;
 		std::map<std::string, std::string> _event_to_channel_map;
 		std::set<channel_product_key> _active_channels;
-
-		coinbase_ws_subscriber(const coinbase_ws_subscriber &) = delete;
-		coinbase_ws_subscriber & operator =(const coinbase_ws_subscriber &) = delete;
 	};
 } // namespace coinbase

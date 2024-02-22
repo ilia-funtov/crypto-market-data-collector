@@ -46,13 +46,13 @@ namespace curl
 	class curl_error : public std::runtime_error
 	{
 	public:
-		inline curl_error(CURLcode code, const char * message) :
+		curl_error(CURLcode code, const char * message) :
 			runtime_error((message != nullptr) ? std::string(message) : std::string("CURL error: " + std::to_string(code))),
 			code_(code)
 		{
 		}
 
-		inline CURLcode code() const { return code_; }
+		CURLcode code() const { return code_; }
 	private:
 		CURLcode code_;
 	};
@@ -62,7 +62,7 @@ namespace curl
 	public:
 		using header_fields_t = std::map<ci_string, std::string>;
 
-		inline curl_wrapper()
+		curl_wrapper()
 		{
 			std::call_once(global_init_, [] { details::initialize_global(); });
 
@@ -75,7 +75,12 @@ namespace curl
 			setopt(CURLOPT_WRITEFUNCTION, curl_wrapper::write_cb);
 		}
 
-		inline ~curl_wrapper() noexcept
+		curl_wrapper(const curl_wrapper&) = delete;
+		curl_wrapper& operator=(const curl_wrapper&) = delete;
+		curl_wrapper(curl_wrapper&&) = delete;
+		curl_wrapper& operator=(curl_wrapper&&) = delete;
+
+		~curl_wrapper()
 		{
 			if (curl_)
 			{
@@ -209,7 +214,7 @@ namespace curl
 			return result;
 		}
 
-		inline static std::size_t header_callback(
+		static std::size_t header_callback(
 			char *buffer,
 			std::size_t size,
 			std::size_t nitems,
@@ -229,7 +234,7 @@ namespace curl
 			return numbytes;
 		}
 
-		inline static std::size_t write_cb(
+		static std::size_t write_cb(
 			char* ptr,
 			std::size_t size,
 			std::size_t nmemb,
@@ -242,7 +247,7 @@ namespace curl
 			return real_size;
 		}
 
-		inline void check_result_code(CURLcode code)
+		void check_result_code(CURLcode code)
 		{
 			if (code != CURLE_OK)
 			{
@@ -252,8 +257,5 @@ namespace curl
 
 		CURL * curl_ = nullptr; // CURL handle
 		inline static std::once_flag global_init_;
-
-		curl_wrapper(const curl_wrapper&) = delete;
-		curl_wrapper& operator=(const curl_wrapper&) = delete;
 	};
 }

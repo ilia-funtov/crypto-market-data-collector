@@ -58,6 +58,11 @@ namespace bitmex
 		{
 		}
 
+		bitmex_ws_subscriber(const bitmex_ws_subscriber &) = delete;
+		bitmex_ws_subscriber & operator =(const bitmex_ws_subscriber &) = delete;
+		bitmex_ws_subscriber(bitmex_ws_subscriber &&) = delete;
+		bitmex_ws_subscriber & operator =(bitmex_ws_subscriber &&) = delete;
+
 		~bitmex_ws_subscriber()
 		{
 			stop();
@@ -247,8 +252,5 @@ namespace bitmex
 		std::map<std::string, subscribe_info> _subscriptions_requested;
 		std::set<std::string> _active_channels;
 		std::set<std::string> _to_unsubscribe;
-
-		bitmex_ws_subscriber(const bitmex_ws_subscriber &) = delete;
-		bitmex_ws_subscriber & operator =(const bitmex_ws_subscriber &) = delete;
 	};
 }

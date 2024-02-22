@@ -57,6 +57,11 @@ namespace websocket_wrapper
 			_ctx.set_default_verify_paths();
 		}
 
+		websocket(const websocket &) = delete;
+		websocket& operator = (const websocket &) = delete;
+		websocket(websocket &&) = delete;
+		websocket& operator = (websocket &&) = delete;
+
 		~websocket()
 		{
 			stop();
@@ -310,8 +315,5 @@ namespace websocket_wrapper
 		std::vector<std::string> _to_write;
 
 		internal_context_ptr _internal_context;
-
-		websocket(const websocket &) = delete;
-		websocket& operator = (const websocket &) = delete;
 	};
 } // namespace websocket_wrapper

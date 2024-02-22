@@ -47,6 +47,11 @@ namespace bitmex
 				symbol,
 				[this](const json & object) { trades_event_handler(object); });
 		}
+
+		bitmex_market_data_subscriber(const bitmex_market_data_subscriber &) = delete;
+		bitmex_market_data_subscriber& operator = (const bitmex_market_data_subscriber &) = delete;
+		bitmex_market_data_subscriber(bitmex_market_data_subscriber &&) = delete;
+		bitmex_market_data_subscriber& operator = (bitmex_market_data_subscriber &&) = delete;
 	private:
 		using json = nlohmann::json;
 
@@ -153,8 +158,5 @@ namespace bitmex
 		const std::string _symbol;
 
 		bitmex_ws_subscriber _ws_subscriber;
-
-		bitmex_market_data_subscriber(const bitmex_market_data_subscriber &) = delete;
-		bitmex_market_data_subscriber& operator = (const bitmex_market_data_subscriber &) = delete;
 	};
 } // namespace bitmex

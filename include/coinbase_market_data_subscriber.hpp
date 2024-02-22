@@ -50,6 +50,11 @@ namespace coinbase
 				{ "match" },
 				[this](const json & object) { matches_event_handler(object); });
 		}
+
+		coinbase_market_data_subscriber(const coinbase_market_data_subscriber &) = delete;
+		coinbase_market_data_subscriber& operator = (const coinbase_market_data_subscriber &) = delete;
+		coinbase_market_data_subscriber(coinbase_market_data_subscriber &&) = delete;
+		coinbase_market_data_subscriber& operator = (coinbase_market_data_subscriber &&) = delete;
 	private:
 		using json = nlohmann::json;
 
@@ -164,8 +169,5 @@ namespace coinbase
 		const market_data_common::trade_handler_t _trade_handler;
 
 		coinbase_ws_subscriber _ws_subscriber;
-
-		coinbase_market_data_subscriber(const coinbase_market_data_subscriber &) = delete;
-		coinbase_market_data_subscriber& operator = (const coinbase_market_data_subscriber &) = delete;
 	};
 } // namespace coinbase

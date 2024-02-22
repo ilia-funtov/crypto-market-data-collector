@@ -52,9 +52,13 @@ namespace market_data_common
 			assert(_book_handler);
 		}
 	
-	protected:
-		virtual ~order_book_subscriber_base() {}
+		order_book_subscriber_base(const order_book_subscriber_base &) = delete;
+		order_book_subscriber_base& operator = (const order_book_subscriber_base &) = delete;
+		order_book_subscriber_base(order_book_subscriber_base &&) = delete;
+		order_book_subscriber_base& operator = (order_book_subscriber_base &&) = delete;
 
+		virtual ~order_book_subscriber_base() {}
+	protected:
 		bool handle_order_book_if_consistent() const
 		{
 			if (is_order_book_consistent())
@@ -95,9 +99,5 @@ namespace market_data_common
 		order_map_t bids_price_volume_map;
 
 		const book_handler_t _book_handler;
-	
-	private:
-		order_book_subscriber_base(const order_book_subscriber_base &) = delete;
-		order_book_subscriber_base& operator = (const order_book_subscriber_base &) = delete;
 	};
 }

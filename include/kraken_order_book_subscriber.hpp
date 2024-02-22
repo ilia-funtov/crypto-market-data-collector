@@ -45,6 +45,11 @@ namespace kraken
 			_thread = std::thread([this] { thread_loop(); });
 		}
 
+		kraken_order_book_subscriber(const kraken_order_book_subscriber &) = delete;
+		kraken_order_book_subscriber& operator = (const kraken_order_book_subscriber &) = delete;
+		kraken_order_book_subscriber(kraken_order_book_subscriber &&) = delete;
+		kraken_order_book_subscriber& operator = (kraken_order_book_subscriber &&) = delete;
+
 		~kraken_order_book_subscriber()
 		{
 			{
@@ -96,9 +101,6 @@ namespace kraken
 				}
 			}
 		}
-
-		kraken_order_book_subscriber(const kraken_order_book_subscriber &) = delete;
-		kraken_order_book_subscriber& operator = (const kraken_order_book_subscriber &) = delete;
 
 		const unsigned int _order_book_size;
 		const std::chrono::milliseconds _quote_period;

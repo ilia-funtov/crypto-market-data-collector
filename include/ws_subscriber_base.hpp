@@ -47,6 +47,11 @@ namespace websocket_subscriber
 			}
 		}
 
+		websocket_subscriber_base(const websocket_subscriber_base &) = delete;
+		websocket_subscriber_base & operator=(const websocket_subscriber_base &) = delete;
+		websocket_subscriber_base(websocket_subscriber_base &&) = delete;
+		websocket_subscriber_base & operator=(websocket_subscriber_base &&) = delete;
+
 		virtual ~websocket_subscriber_base()
 		{
 			stop();

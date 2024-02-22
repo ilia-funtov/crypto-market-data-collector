@@ -66,6 +66,11 @@ namespace bitfinex
 					[this](const nlohmann::json & object) { trades_event_handler(object); });
 			}
 		}
+
+		bitfinex_market_data_subscriber(const bitfinex_market_data_subscriber &) = delete;
+		bitfinex_market_data_subscriber& operator = (const bitfinex_market_data_subscriber &) = delete;
+		bitfinex_market_data_subscriber(bitfinex_market_data_subscriber &&) = delete;
+		bitfinex_market_data_subscriber& operator = (bitfinex_market_data_subscriber &&) = delete;
 	private:
 		using json = nlohmann::json;
 
@@ -162,8 +167,5 @@ namespace bitfinex
 		
 		const market_data_common::trade_handler_t _trade_handler;
 		bitfinex_ws_subscriber _ws_subscriber;
-
-		bitfinex_market_data_subscriber(const bitfinex_market_data_subscriber &) = delete;
-		bitfinex_market_data_subscriber& operator = (const bitfinex_market_data_subscriber &) = delete;
 	};
 }

@@ -186,6 +186,11 @@ namespace market_data
 			}
 		}
 
+		market_data_provider(const market_data_provider &) = delete;
+		market_data_provider& operator = (const market_data_provider &) = delete;
+		market_data_provider(market_data_provider &&) = delete;
+		market_data_provider& operator = (market_data_provider &&) = delete;
+
 		~market_data_provider()
 		{
 			{
@@ -242,9 +247,6 @@ namespace market_data
 		}
 
 	private:
-		market_data_provider(const market_data_provider &) = delete;
-		market_data_provider& operator = (const market_data_provider &) = delete;
-
 		enum class deal_type : unsigned int
 		{
 			buy,
