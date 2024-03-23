@@ -29,7 +29,7 @@ namespace bitfinex
 
 		using event_handler_t = std::function<void(const json &)>;
 
-		constexpr static char default_api_address[] = "api.bitfinex.com";
+		constexpr static char default_api_address[] = "api-pub.bitfinex.com";
 		constexpr static unsigned int default_port = 443;
 
 		bitfinex_ws_subscriber(

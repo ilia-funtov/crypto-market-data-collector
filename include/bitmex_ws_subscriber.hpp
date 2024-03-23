@@ -34,7 +34,7 @@ namespace bitmex
 
 		using event_handler_t = std::function<void(const json &)>;
 
-		constexpr static char default_api_address[] = "www.bitmex.com";
+		constexpr static char default_api_address[] = "ws.bitmex.com";
 		constexpr static char target[] = "/realtime";
 		constexpr static unsigned int default_port = 443;
 
