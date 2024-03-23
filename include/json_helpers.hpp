@@ -12,7 +12,6 @@ Copyright (c) 2022 Ilia Funtov.
 #include <sstream>
 #include <string>
 #include <type_traits>
-#include <boost/optional.hpp>
 
 #include <nlohmann/json.hpp>
 
@@ -101,36 +100,5 @@ namespace json_helpers
 	T get_required_value(const json & object, const std::string & property_name)
 	{
 		return get_required_value<T>(object, property_name.c_str());
-	}
-
-	template <typename T>
-	boost::optional<T> get_optional_value(const json & object, const char * property_name)
-	{
-		assert(property_name != nullptr);
-		const auto iter = object.find(property_name);
-		if (iter == object.end() || iter->is_null())
-		{
-			return {};
-		}
-
-		if constexpr (std::is_arithmetic_v<T>)
-		{
-			if (iter->is_string())
-			{
-				std::istringstream ss(iter->get<std::string>());
-
-				T value;
-				ss >> value;
-				return value;
-			}
-		}
-
-		return iter->get<T>();
-	}
-
-	template <typename T>
-	boost::optional<T> get_optional_value(const json & object, const std::string & property_name)
-	{
-		return get_optional_value<T>(object, property_name.c_str());
 	}
 } // namespace json_helpers
