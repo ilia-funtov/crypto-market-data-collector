@@ -81,9 +81,3 @@ exchange name, timestamp in microseconds, best bid price, best bid volume, best 
 Trade file format is:
 
 exchange name, price, volume (positive for taker buy and negative for taker sell), timestamp in microseconds
-
-## Support
-You can support this project by making a donation in Bitcoin:
-```
-bc1qqx0v9zuy2xem5pkz6glr5ft02cfxxhc2pr7grm
-```
