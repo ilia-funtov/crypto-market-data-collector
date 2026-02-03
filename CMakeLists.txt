@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.0.0)
+cmake_minimum_required(VERSION 3.30)
 project(market-data-collector)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
@@ -22,7 +22,7 @@ target_include_directories(market-data-collector SYSTEM PRIVATE dependencies)
 if (MSVC)
     target_compile_options(market-data-collector PRIVATE /W4)
 else()
-    target_compile_options(market-data-collector PRIVATE -Wall)
+    target_compile_options(market-data-collector PRIVATE -Wall -Wextra -Werror -Wpedantic)
 endif()
 
 find_package(Boost REQUIRED program_options log log_setup)
@@ -68,7 +68,7 @@ if ((DEFINED CLANG_TIDY_EXE) AND (EXISTS ${CLANG_TIDY_EXE}))
     if (MSVC)
         target_compile_options(market-data-collector-lint PRIVATE /W4)
     else()
-        target_compile_options(market-data-collector-lint PRIVATE -Wall -Wextra -pedantic)
+        target_compile_options(market-data-collector-lint PRIVATE -Wall -Wextra -Wpedantic)        
     endif()
 
     target_include_directories(market-data-collector-lint PRIVATE include)
